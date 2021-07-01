@@ -43,7 +43,6 @@ namespace IL_OS
             };
 
         public static bool Pressed = false;
-        public static bool Opened = false;
 
         protected override void BeforeRun()
         {
@@ -82,25 +81,6 @@ namespace IL_OS
 
             Button  button = new Button(vMWareSVGAII, "Start", 4, 4, Color.White, Color.FromArgb(0, 0, 40));
             button.Draw();
-
-            if (MouseOver.Button(button) == true && Opened == true)
-            {
-                vMWareSVGAII.DoubleBuffer_DrawFillRectangle(2, 26, screenWidth / 5, screenHeight / 2 - 20, (uint)Color.FromArgb(4, 89, 202).ToArgb());
-                Opened = false;
-            }
-            else if (MouseOver.Button(button) == true && Opened == false)
-            {
-                vMWareSVGAII.DoubleBuffer_DrawFillRectangle(2, 26, screenWidth / 5, screenHeight / 2 - 20, (uint)Color.White.ToArgb());
-                Opened = true;
-            }
-            else if (Opened == true)
-            {
-                vMWareSVGAII.DoubleBuffer_DrawFillRectangle(2, 26, screenWidth / 5, screenHeight / 2 - 20, (uint)Color.White.ToArgb());
-            }
-            else
-            {
-                Opened = false;
-            }
             
             DrawCursor(vMWareSVGAII, Sys.MouseManager.X, Sys.MouseManager.Y);
             vMWareSVGAII.DoubleBuffer_Update();
