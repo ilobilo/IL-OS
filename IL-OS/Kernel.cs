@@ -3,6 +3,8 @@ using Sys = Cosmos.System;
 using System.Drawing;
 using nifanfa.CosmosDrawString;
 using Cosmos.System.Graphics;
+using GUI;
+using Controls;
 
 namespace IL_OS
 {
@@ -14,7 +16,7 @@ namespace IL_OS
         //public static uint screenHeight = 480;
         public static uint screenWidth = 1024;
         public static uint screenHeight = 768;
-
+        
         public static DoubleBufferedVMWareSVGAII vMWareSVGAII;
 
         int[] cursor = new int[]
@@ -41,9 +43,26 @@ namespace IL_OS
             };
 
         public static bool Pressed = false;
-        public static bool Clicked = false;
+        public static bool Opened = false;
 
         protected override void BeforeRun()
+        {
+            
+            vMWareSVGAII = new DoubleBufferedVMWareSVGAII();
+            vMWareSVGAII.SetMode(screenWidth, screenHeight, 32);
+            
+            Sys.MouseManager.ScreenWidth = screenWidth;
+            Sys.MouseManager.ScreenHeight = screenHeight;
+
+            Sys.MouseManager.X = screenWidth / 2;
+            Sys.MouseManager.Y = screenHeight / 2;
+
+            Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
+
+            //Console.Clear();
+        }
+        
+        protected override void Run()
         {
             switch (Sys.MouseManager.MouseState)
             {
@@ -55,73 +74,38 @@ namespace IL_OS
                     break;
             }
 
-            vMWareSVGAII = new DoubleBufferedVMWareSVGAII();
-            vMWareSVGAII.SetMode(screenWidth, screenHeight);
-            
-            Sys.MouseManager.ScreenWidth = screenWidth;
-            Sys.MouseManager.ScreenHeight = screenHeight;
-
-            Sys.MouseManager.X = screenWidth / 2;
-            Sys.MouseManager.Y = screenHeight / 2;
-
-            Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
-            //Console.Clear();
-        }
-
-        protected override void Run()
-        {
             vMWareSVGAII.DoubleBuffer_Clear((uint)Color.FromArgb(4, 89, 202).ToArgb());
             
-            vMWareSVGAII.DoubleBuffer_DrawFillRectangle(0, 0, screenWidth, 24, (uint)Color.FromArgb(0, 0, 0, 40).ToArgb());
-            vMWareSVGAII.DoubleBuffer_DrawLine((uint)Color.LightGray.ToArgb(), 0, (int)(24 + 1), (int)screenWidth, (int)(24 + 1));
-            vMWareSVGAII.DoubleBuffer_DrawFillRectangle(4, 4, (uint)(24 - 2) * 2, 24 - 6, (uint)Color.White.ToArgb());
-            vMWareSVGAII._DrawACSIIString("Start", (uint)Color.Black.ToArgb(), 4 + ((24 - 4) * 2 - 35) / 2, (24 - 2 - 10) / 2);
+            vMWareSVGAII.DoubleBuffer_DrawFillRectangle(0, 0, screenWidth, 23, (uint)Color.FromArgb(0, 0, 0, 40).ToArgb());
+            vMWareSVGAII.DoubleBuffer_DrawLine((uint)Color.LightGray.ToArgb(), 0, (int)(24), (int)screenWidth, (int)(24));
             vMWareSVGAII.DoubleBuffer_DrawRectangle((uint)Color.LightGray.ToArgb(), 0, 0, (int)screenWidth, (int)screenHeight - 1);
 
+            Button  button = new Button(vMWareSVGAII, "Start", 4, 4, Color.White, Color.FromArgb(0, 0, 40));
+            button.Draw();
+
+            if (MouseOver.Button(button) == true && Opened == true)
+            {
+                vMWareSVGAII.DoubleBuffer_DrawFillRectangle(2, 26, screenWidth / 5, screenHeight / 2 - 20, (uint)Color.FromArgb(4, 89, 202).ToArgb());
+                Opened = false;
+            }
+            else if (MouseOver.Button(button) == true && Opened == false)
+            {
+                vMWareSVGAII.DoubleBuffer_DrawFillRectangle(2, 26, screenWidth / 5, screenHeight / 2 - 20, (uint)Color.White.ToArgb());
+                Opened = true;
+            }
+            else if (Opened == true)
+            {
+                vMWareSVGAII.DoubleBuffer_DrawFillRectangle(2, 26, screenWidth / 5, screenHeight / 2 - 20, (uint)Color.White.ToArgb());
+            }
+            else
+            {
+                Opened = false;
+            }
+            
             DrawCursor(vMWareSVGAII, Sys.MouseManager.X, Sys.MouseManager.Y);
             vMWareSVGAII.DoubleBuffer_Update();
 
-            CheckClick();
-
             //Shell.Run();
-        }
-
-        public void CheckClick()
-        {
-            if (Pressed == true)
-            {
-                onclick();
-            }
-            else
-            {
-                return;
-            }
-        }
-
-        public void onclick()
-        {
-            if (Clicked == false)
-            {
-                if (Sys.MouseManager.X > 2 && Sys.MouseManager.X < 46)
-                {
-                    if (Sys.MouseManager.Y > 2 && Sys.MouseManager.Y < 24)
-                    {
-                        vMWareSVGAII.DoubleBuffer_DrawFillRectangle(1, 25, 150, 200, (uint)Color.White.ToArgb());
-                        Clicked = true;
-                    }
-                } 
-            }
-            else
-            {
-                if (Sys.MouseManager.X > 2 && Sys.MouseManager.X < 46)
-                {
-                    if (Sys.MouseManager.Y > 2 && Sys.MouseManager.Y < 24)
-                    {
-                        vMWareSVGAII.DoubleBuffer_DrawFillRectangle(1, 25, 150, 200, (uint)Color.FromArgb(4, 89, 202).ToArgb());
-                        Clicked = false;
-                    }
-                }
-            }
         }
 
         public void DrawCursor(DoubleBufferedVMWareSVGAII driver, uint x, uint y)
@@ -140,6 +124,11 @@ namespace IL_OS
                     }
                 }
             }
+        }
+
+        public static bool HasClicked()
+        {
+            return Pressed;
         }
     }
 }

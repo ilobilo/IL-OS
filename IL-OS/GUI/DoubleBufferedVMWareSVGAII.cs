@@ -2,8 +2,9 @@
 using Cosmos.HAL;
 using Cosmos.System.Graphics;
 using System;
+using System.Drawing;
 
-namespace IL_OS
+namespace GUI
 {
     /// <summary>
     /// VMWareSVGAII class.
