@@ -10,8 +10,10 @@ namespace IL_OS
 {
     public class Kernel : Sys.Kernel
     {
+        // Filesystem
         Sys.FileSystem.CosmosVFS fs = new Sys.FileSystem.CosmosVFS();
 
+        // Screen Resolution
         //public static uint screenWidth = 640;
         //public static uint screenHeight = 480;
         public static uint screenWidth = 1024;
@@ -47,16 +49,18 @@ namespace IL_OS
 
         protected override void BeforeRun()
         {
-            
+            // Start GUI
             vMWareSVGAII = new DoubleBufferedVMWareSVGAII();
             vMWareSVGAII.SetMode(screenWidth, screenHeight, 32);
             
+            // Initialize Mouse
             Sys.MouseManager.ScreenWidth = screenWidth;
             Sys.MouseManager.ScreenHeight = screenHeight;
 
             Sys.MouseManager.X = screenWidth / 2;
             Sys.MouseManager.Y = screenHeight / 2;
 
+            // Initialize Filesystem
             Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
 
             //Console.Clear();
@@ -76,10 +80,12 @@ namespace IL_OS
 
             vMWareSVGAII.DoubleBuffer_Clear((uint)Color.FromArgb(4, 89, 202).ToArgb());
 
+            // Taskbar
             vMWareSVGAII.DoubleBuffer_DrawFillRectangle(0, 0, screenWidth, 23, (uint)Color.FromArgb(0, 0, 0, 40).ToArgb());
             vMWareSVGAII.DoubleBuffer_DrawLine((uint)Color.LightGray.ToArgb(), 0, (int)(24), (int)screenWidth, (int)(24));
             vMWareSVGAII.DoubleBuffer_DrawRectangle((uint)Color.LightGray.ToArgb(), 0, 0, (int)screenWidth, (int)screenHeight - 1);
 
+            // Power Off Button
             Button  button = new Button(vMWareSVGAII, "Power Off", 4, 4, Color.White, Color.FromArgb(0, 0, 40), Color.DarkRed);
             button.OnClick += delegate (object s, EventArgs e)
             {
@@ -87,7 +93,10 @@ namespace IL_OS
             };
             button.DrawAndUpdate();
             
+            // Draw Cursor
             DrawCursor(vMWareSVGAII, Sys.MouseManager.X, Sys.MouseManager.Y);
+
+            // Display Everything From Above
             vMWareSVGAII.DoubleBuffer_Update();
 
             //Shell.Run();
