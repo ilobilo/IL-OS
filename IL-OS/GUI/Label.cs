@@ -10,8 +10,9 @@ namespace Controls
     {
         DoubleBufferedVMWareSVGAII driver;
 
-        public Color TextColor { get; set; } = Color.Black;
-        public Color BackColor { get; set; } = Color.White;
+        public static Color TextColor { get; set; } = Color.Black;
+        public static Color BackColor { get; set; } = Color.White;
+        public static Color BorderColor { get; set; } = BackColor;
 
         public uint X { get; set; }
         public uint Y { get; set; }
@@ -39,12 +40,24 @@ namespace Controls
             BackColor = bckcol;
         }
 
+        public Label(DoubleBufferedVMWareSVGAII vMWareSVGAII, string text, uint x, uint y, Color txtcol, Color bckcol, Color bordcol)
+        {
+            driver = vMWareSVGAII;
+            Text = text;
+            X = x;
+            Y = y;
+            TextColor = txtcol;
+            BackColor = bckcol;
+            BorderColor = bordcol;
+        }
+
         public void Draw()
         {
             uint txtX = X + 3;
             uint txtY = Y + 1;
 
             driver.DoubleBuffer_DrawFillRectangle(X, Y, width, height, (uint)BackColor.ToArgb());
+            driver.DoubleBuffer_DrawRectangle((uint)BorderColor.ToArgb(), (int)X, (int)Y, (int)width, (int)height);
             driver._DrawACSIIString(Text, (uint)TextColor.ToArgb(), txtX, txtY);
         }
     }
