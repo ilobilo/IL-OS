@@ -81,16 +81,11 @@ namespace IL_OS
             vMWareSVGAII.DoubleBuffer_DrawRectangle((uint)Color.LightGray.ToArgb(), 0, 0, (int)screenWidth, (int)screenHeight - 1);
 
             Button  button = new Button(vMWareSVGAII, "Power Off", 4, 4, Color.White, Color.FromArgb(0, 0, 40), Color.DarkRed);
-            button.Draw();
             button.OnClick += delegate (object s, EventArgs e)
             {
                 Sys.Power.Shutdown();
             };
-            button.Update();
-            /*if (CheckClick.Button(button))
-            {
-                Sys.Power.Shutdown();
-            }*/
+            button.DrawAndUpdate();
             
             DrawCursor(vMWareSVGAII, Sys.MouseManager.X, Sys.MouseManager.Y);
             vMWareSVGAII.DoubleBuffer_Update();

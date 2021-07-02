@@ -51,9 +51,62 @@ namespace Controls
             BorderColor = bordcol;
         }
 
+        public Label(DoubleBufferedVMWareSVGAII vMWareSVGAII, string text, uint x, uint y, uint w)
+        {
+            driver = vMWareSVGAII;
+            Text = text;
+            X = x;
+            Y = y;
+            if (w < width)
+            {
+                width = width;
+            }
+            else
+            {
+                width = w;
+            }
+        }
+
+        public Label(DoubleBufferedVMWareSVGAII vMWareSVGAII, string text, uint x, uint y, uint w, Color txtcol, Color bckcol)
+        {
+            driver = vMWareSVGAII;
+            Text = text;
+            X = x;
+            Y = y;
+            TextColor = txtcol;
+            BackColor = bckcol;
+            if (w < width)
+            {
+                width = width;
+            }
+            else
+            {
+                width = w;
+            }
+        }
+
+        public Label(DoubleBufferedVMWareSVGAII vMWareSVGAII, string text, uint x, uint y, uint w, Color txtcol, Color bckcol, Color bordcol)
+        {
+            driver = vMWareSVGAII;
+            Text = text;
+            X = x;
+            Y = y;
+            TextColor = txtcol;
+            BackColor = bckcol;
+            BorderColor = bordcol;
+            if (w < width)
+            {
+                width = width;
+            }
+            else
+            {
+                width = w;
+            }
+        }
+
         public void Draw()
         {
-            uint txtX = X + 3;
+            uint txtX = X + (((uint)width - ((uint)Text.Length * 7 + (uint)Text.Length - 1)) / 2);
             uint txtY = Y + 1;
 
             driver.DoubleBuffer_DrawFillRectangle(X, Y, width, height, (uint)BackColor.ToArgb());
