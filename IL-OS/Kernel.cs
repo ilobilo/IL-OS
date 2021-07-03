@@ -94,20 +94,7 @@ namespace IL_OS
                         break;
                 }
 
-                vMWareSVGAII.DoubleBuffer_Clear((uint)Color.FromArgb(4, 89, 202).ToArgb());
-
-                // Taskbar
-                vMWareSVGAII.DoubleBuffer_DrawFillRectangle(0, 0, screenWidth, 23, (uint)Color.FromArgb(0, 0, 0, 40).ToArgb());
-                vMWareSVGAII.DoubleBuffer_DrawLine((uint)Color.LightGray.ToArgb(), 0, (int)(24), (int)screenWidth, (int)(24));
-                vMWareSVGAII.DoubleBuffer_DrawRectangle((uint)Color.LightGray.ToArgb(), 0, 0, (int)screenWidth, (int)screenHeight - 1);
-
-                // Power Off Button
-                Button button = new Button(vMWareSVGAII, "Power Off", 4, 4, Color.White, Color.FromArgb(0, 0, 40), Color.DarkRed);
-                button.OnClick += delegate (object s, EventArgs e)
-                {
-                    Sys.Power.Shutdown();
-                };
-                button.DrawAndUpdate();
+                GUI.Taskbar(vMWareSVGAII, screenWidth, screenHeight);
 
                 // Draw Cursor
                 DrawCursor(vMWareSVGAII, Sys.MouseManager.X, Sys.MouseManager.Y);
@@ -117,6 +104,7 @@ namespace IL_OS
             }
             else
             {
+                Console.Clear();
                 Shell.Run();
             }
         }

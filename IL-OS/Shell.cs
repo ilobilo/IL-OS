@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cosmos.System;
 using Console = System.Console;
-using System.Text;
 using System.IO;
 
 namespace IL_OS
@@ -27,7 +25,14 @@ namespace IL_OS
             RegisterCommands();
 
             string input = string.Empty;
-            Console.Write($"0:\\{current_dir} $ ");
+            if (Kernel.FS == true)
+            {
+                Console.Write($"0:\\{current_dir} $ "); 
+            }
+            else
+            {
+                Console.Write("$ ");
+            }
             input = Console.ReadLine() + " ";
 
             if ((string.IsNullOrWhiteSpace(input)) || (input.Length == 0))
