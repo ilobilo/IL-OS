@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using GUI;
 using System.Drawing;
 using nifanfa.CosmosDrawString;
@@ -114,4 +114,4 @@ namespace Controls
             driver._DrawACSIIString(Text, (uint)TextColor.ToArgb(), txtX, txtY);
         }
     }
-}
+}*/

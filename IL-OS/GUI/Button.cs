@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using GUI;
 using System.Drawing;
 using nifanfa.CosmosDrawString;
@@ -30,7 +30,7 @@ namespace Controls
         public uint X { get; set; }
         public uint Y { get; set; }
 
-        public static string Text { get; set; } = "";
+        public static string Text { get; set; } = "Button";
 
         public uint width = (uint)(Text.Length * 7 + Text.Length - 1 + 6);
         public uint height = 16;
@@ -144,4 +144,4 @@ namespace Controls
             Update();
         }
     }
-}
+}*/

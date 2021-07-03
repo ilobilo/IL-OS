@@ -1,8 +1,6 @@
-﻿using System;
-using Sys = Cosmos.System;
+﻿using Cosmos.System;
 using System.Drawing;
 using GUI;
-using Controls;
 using nifanfa.CosmosDrawString;
 
 namespace IL_OS
@@ -18,22 +16,23 @@ namespace IL_OS
             vMWareSVGAII.DoubleBuffer_DrawFillRectangle(0, 0, screenWidth, 24, (uint)Color.FromArgb(0, 0, 0, 40).ToArgb());
             vMWareSVGAII.DoubleBuffer_DrawLine((uint)Color.LightGray.ToArgb(), 0, (int)(24), (int)screenWidth, (int)(24));
             vMWareSVGAII.DoubleBuffer_DrawRectangle((uint)Color.LightGray.ToArgb(), 0, 0, (int)screenWidth, (int)screenHeight - 1);
-            vMWareSVGAII.DoubleBuffer_DrawLine((uint)Color.LightGray.ToArgb(), 85, 3, 85, 22);
+            vMWareSVGAII.DoubleBuffer_DrawLine((uint)Color.LightGray.ToArgb(), 84, 3, 84, 22);
 
-            // Power Off Button
-            Button button = new Button(vMWareSVGAII, "Power Off", 4, 4, Color.White, Color.FromArgb(0, 0, 40), Color.DarkRed);
-            button.OnClick += delegate (object s, EventArgs e)
+            string poweroff = "Power Off";
+            vMWareSVGAII.DoubleBuffer_DrawFillRectangle(4, 4, (uint)(poweroff.Length * 7 + poweroff.Length - 1 + 6), 16, (uint)Color.FromArgb(0, 0, 40).ToArgb());
+            vMWareSVGAII._DrawACSIIString(poweroff, (uint)Color.White.ToArgb(), 4 + (((uint)(poweroff.Length * 7 + poweroff.Length - 1 + 6) - ((uint)poweroff.Length * 7 + (uint)poweroff.Length - 1)) / 2), 4 + 1);
+            if (IL_OS.Kernel.Pressed == true && MouseManager.X > 4 && MouseManager.X < (4 + (uint)(poweroff.Length * 7 + poweroff.Length - 1 + 6)) && MouseManager.Y > 4 && MouseManager.Y < (4 + 16))
             {
-                Sys.Power.Shutdown();
-            };
-            button.DrawAndUpdate();
+                Power.Shutdown();
+            }
 
-            Button terminal = new Button(vMWareSVGAII, "Terminal", 89, 4, Color.White, Color.FromArgb(0, 0, 40), Color.DarkRed);
-            terminal.OnClick += delegate (object s, EventArgs e)
+            string terminal = "Terminal";
+            vMWareSVGAII.DoubleBuffer_DrawFillRectangle(88, 4, (uint)(terminal.Length * 7 + terminal.Length - 1 + 6), 16, (uint)Color.FromArgb(0, 0, 40).ToArgb());
+            vMWareSVGAII._DrawACSIIString(terminal, (uint)Color.White.ToArgb(), 88 + (((uint)(terminal.Length * 7 + terminal.Length - 1 + 6) - ((uint)terminal.Length * 7 + (uint)terminal.Length - 1)) / 2), 4 + 1);
+            if (IL_OS.Kernel.Pressed == true && MouseManager.X > 88 && MouseManager.X < (88 + (uint)(terminal.Length * 7 + terminal.Length - 1 + 6)) && MouseManager.Y > 4 && MouseManager.Y < (4 + 16))
             {
                 vMWareSVGAII._DrawACSIIString("Not implemented!", (uint)Color.Red.ToArgb(), (Kernel.screenWidth - 112) / 2, (Kernel.screenHeight - 10) / 2);
-            };
-            terminal.DrawAndUpdate();
+            }
         }
     }
 }
