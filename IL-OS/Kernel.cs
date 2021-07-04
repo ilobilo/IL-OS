@@ -2,7 +2,6 @@
 using Sys = Cosmos.System;
 using System.Drawing;
 using GUI;
-using nifanfa.CosmosDrawString;
 
 namespace IL_OS
 {
