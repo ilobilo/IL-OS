@@ -109,7 +109,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="GUI\Windows\" />
       <Folder Include="Network\" />
     </ItemGroup>
 
