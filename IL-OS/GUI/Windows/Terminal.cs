@@ -78,7 +78,7 @@ namespace IL_OS
         private void ProcessCommand()
         {
             Command = Command + " ";
-            string command = Command.Split(" ")[0].ToLower();
+            string command = Command.Split(" ", StringSplitOptions.RemoveEmptyEntries)[0].ToLower();
             int i = Command.IndexOf(" ") + 1;
             string[] args = Command.Substring(i).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -86,6 +86,13 @@ namespace IL_OS
             {
                 case "test":
                     Content += Test.RunGui(args) + "\n";
+                    break;
+
+                case "winlist":
+                    foreach (var item in Kernel.windows)
+                    {
+                        Content += item.Title + "\n";
+                    }
                     break;
 
                 default:
