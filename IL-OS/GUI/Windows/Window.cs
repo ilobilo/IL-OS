@@ -12,6 +12,11 @@ namespace IL_OS
 
         public string Title = "Window";
 
+        public Color BarCol = Color.Gray;
+        public Color BordCol = Color.White;
+        public Color MainCol = Color.Black;
+        public Color CloseCol = Color.Brown;
+
         public bool Opened;
         public bool Move = false;
 
@@ -59,7 +64,7 @@ namespace IL_OS
             }
 
             // Bar
-            vMWareSVGAII.DoubleBuffer_DrawFillRectangle((uint)X, (uint)Y, (uint)(W - Bar), (uint)Bar, (uint)Color.Gray.ToArgb());
+            vMWareSVGAII.DoubleBuffer_DrawFillRectangle((uint)X, (uint)Y, (uint)(W - Bar), (uint)Bar, (uint)BarCol.ToArgb());
             // Tittle
             if (Kernel.Focused == GUI.GetIndex(this.Title))
             {
@@ -69,12 +74,12 @@ namespace IL_OS
             {
                 vMWareSVGAII.DrawACSIIString(Title, (uint)Color.Blue.ToArgb(), (uint)(X + 3), (uint)(Y + 3));
             }
-            // Hide Button
-            vMWareSVGAII.DoubleBuffer_DrawFillRectangle((uint)(X + W - Bar), (uint)Y, (uint)Bar, (uint)Bar, (uint)Color.Brown.ToArgb());
+            // Close Button
+            vMWareSVGAII.DoubleBuffer_DrawFillRectangle((uint)(X + W - Bar), (uint)Y, (uint)Bar, (uint)Bar, (uint)CloseCol.ToArgb());
             // Main Form
-            vMWareSVGAII.DoubleBuffer_DrawFillRectangle((uint)X, (uint)(Y + Bar), (uint)W, (uint)(H - Bar), (uint)Color.Black.ToArgb());
+            vMWareSVGAII.DoubleBuffer_DrawFillRectangle((uint)X, (uint)(Y + Bar), (uint)W, (uint)(H - Bar), (uint)MainCol.ToArgb());
             // Border
-            vMWareSVGAII.DoubleBuffer_DrawRectangle((uint)Color.White.ToArgb(), X - 1, Y - 1, W + 1, H + 1);
+            vMWareSVGAII.DoubleBuffer_DrawRectangle((uint)BordCol.ToArgb(), X - 1, Y - 1, W + 1, H + 1);
 
             if (Kernel.Focused == GUI.GetIndex(this.Title))
             {

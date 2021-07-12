@@ -74,7 +74,7 @@ namespace IL_OS
 
                 // Initialize Windows
                 windows = new List<Window>();
-                windows.Add(new Notepad() { X = 350, Y = 350, W = 500, H = 300 });
+                windows.Add(new Notepad() { X = 350, Y = 350, W = 500, H = 300, MainCol = Color.Wheat });
                 windows.Add(new Terminal() { X = 100, Y = 100, W = 700, H = 500 });
             }
 
