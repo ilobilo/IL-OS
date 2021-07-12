@@ -41,10 +41,6 @@ namespace IL_OS
                 {
                     Kernel.Focused = GUI.GetIndex(this.Title);
                 }
-                else
-                {
-                    Kernel.Focused = -1;
-                }
             }
             else
             {
