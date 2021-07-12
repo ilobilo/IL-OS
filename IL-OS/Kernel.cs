@@ -75,6 +75,7 @@ namespace IL_OS
                 // Initialize Windows
                 windows = new List<Window>();
                 windows.Add(new Terminal() { X = 100, Y = 100, W = 700, H = 500 });
+                windows.Add(new Notepad() { X = 350, Y = 350, W = 500, H = 300 });
             }
 
             if (FS == true)
@@ -103,7 +104,14 @@ namespace IL_OS
 
                 foreach (var window in windows)
                 {
-                    window.Update(vMWareSVGAII);
+                    if (GUI.GetIndex(window.Title) != Focused)
+                    {
+                        window.Update(vMWareSVGAII); 
+                    }
+                }
+                if (Focused > -1)
+                {
+                    windows[Focused].Update(vMWareSVGAII);
                 }
 
                 // Draw Cursor

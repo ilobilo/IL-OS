@@ -29,8 +29,9 @@ namespace IL_OS
             string term = "Terminal";
             vMWareSVGAII.DoubleBuffer_DrawFillRectangle(88, 4, (uint)(term.Length * 7 + term.Length - 1 + 6), 16, (uint)Color.FromArgb(0, 0, 40).ToArgb());
             vMWareSVGAII.DrawACSIIString(term, (uint)Color.White.ToArgb(), 88 + (((uint)(term.Length * 7 + term.Length - 1 + 6) - ((uint)term.Length * 7 + (uint)term.Length - 1)) / 2), 4 + 1);
-            if (IL_OS.Kernel.Pressed == true && MouseManager.X > 88 && MouseManager.X < (88 + (uint)(term.Length * 7 + term.Length - 1 + 6)) && MouseManager.Y > 4 && MouseManager.Y < (4 + 16))
+            if (Kernel.Pressed == true && MouseManager.X > 88 && MouseManager.X < (88 + (uint)(term.Length * 7 + term.Length - 1 + 6)) && MouseManager.Y > 4 && MouseManager.Y < (4 + 16))
             {
+                Kernel.windows[GetIndex("Notepad")].Opened = true;
                 Kernel.windows[GetIndex("Terminal")].Opened = true;
             }
         }

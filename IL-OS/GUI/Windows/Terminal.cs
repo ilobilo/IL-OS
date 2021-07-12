@@ -28,9 +28,10 @@ namespace IL_OS
 
         int WI = 0;
         KeyEvent keyEvent;
-
+        
         public override void InputUpdate()
         {
+            keyEvent.KeyChar = '\0';
             if (KeyboardManager.TryReadKey(out keyEvent))
             {
                 switch (keyEvent.Key)
@@ -93,6 +94,7 @@ namespace IL_OS
                     {
                         Content += item.Title + "\n";
                     }
+                    Content += Kernel.Focused.ToString();
                     break;
 
                 default:
