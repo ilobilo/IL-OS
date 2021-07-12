@@ -79,6 +79,20 @@ namespace IL_OS
             vMWareSVGAII.DoubleBuffer_DrawFillRectangle((uint)X, (uint)(Y + Bar), (uint)W, (uint)(H - Bar), (uint)Color.Black.ToArgb());
             // Border
             vMWareSVGAII.DoubleBuffer_DrawRectangle((uint)Color.White.ToArgb(), X - 1, Y - 1, W + 1, H + 1);
+
+            if (Kernel.Focused == GUI.GetIndex(this.Title))
+            {
+                InputUpdate();
+            }
+            UIUpdate();
+        }
+
+        public virtual void UIUpdate()
+        {
+        }
+
+        public virtual void InputUpdate()
+        {
         }
     }
 }
