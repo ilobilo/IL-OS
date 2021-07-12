@@ -2,6 +2,7 @@
 using Sys = Cosmos.System;
 using System.Drawing;
 using GUI;
+using System.Collections.Generic;
 
 namespace IL_OS
 {
@@ -44,7 +45,9 @@ namespace IL_OS
         public static bool Gui;
         public static bool FS;
         public static bool Pressed = false;
-        public static bool Opened = false;
+
+        public static List<Window> windows;
+        public static int Focused = -1;
 
         protected override void BeforeRun()
         {
@@ -52,7 +55,7 @@ namespace IL_OS
             Console.Clear();
             FS = AskFS();
 
-            // Checkif user wants to start graphics mode
+            // Check if user wants to start graphics mode
             Console.Clear();
             Gui = AskGui();
 
@@ -68,6 +71,10 @@ namespace IL_OS
 
                 Sys.MouseManager.X = screenWidth / 2;
                 Sys.MouseManager.Y = screenHeight / 2;
+
+                // Initialize Windows
+                windows = new List<Window>();
+                windows.Add(new Terminal() { X = 100, Y = 100, W = 700, H = 500 });
             }
 
             if (FS == true)
@@ -93,6 +100,11 @@ namespace IL_OS
                 }
 
                 GUI.Taskbar(vMWareSVGAII, screenWidth, screenHeight);
+
+                foreach (var window in windows)
+                {
+                    window.Update(vMWareSVGAII);
+                }
 
                 // Draw Cursor
                 DrawCursor(vMWareSVGAII, Sys.MouseManager.X, Sys.MouseManager.Y);

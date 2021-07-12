@@ -17,7 +17,7 @@
         <VMware_Description>Use VMware Player or Workstation to deploy and debug.</VMware_Description>
         <VMware_Deployment>ISO</VMware_Deployment>
         <VMware_Launch>VMware</VMware_Launch>
-        <VMware_DebugEnabled>True</VMware_DebugEnabled>
+        <VMware_DebugEnabled>False</VMware_DebugEnabled>
         <VMware_DebugMode>Source</VMware_DebugMode>
         <VMware_IgnoreDebugStubAttribute>False</VMware_IgnoreDebugStubAttribute>
         <VMware_CosmosDebugPort>Serial: COM1</VMware_CosmosDebugPort>
