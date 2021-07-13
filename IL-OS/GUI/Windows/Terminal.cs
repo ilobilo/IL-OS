@@ -31,7 +31,7 @@ namespace IL_OS
         
         public override void InputUpdate()
         {
-            keyEvent.KeyChar = '\0';
+            //keyEvent.KeyChar = '\0';
             if (KeyboardManager.TryReadKey(out keyEvent))
             {
                 switch (keyEvent.Key)

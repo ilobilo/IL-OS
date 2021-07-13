@@ -48,6 +48,7 @@ namespace IL_OS
 
         public static List<Window> windows;
         public static int Focused = -1;
+        public static bool WindowsMoving = false;
 
         protected override void BeforeRun()
         {
@@ -74,8 +75,8 @@ namespace IL_OS
 
                 // Initialize Windows
                 windows = new List<Window>();
-                windows.Add(new Notepad() { X = 350, Y = 350, W = 500, H = 300, MainCol = Color.Wheat });
                 windows.Add(new Terminal() { X = 100, Y = 100, W = 700, H = 500 });
+                windows.Add(new Notepad() { X = 350, Y = 350, W = 600, H = 400, MainCol = Color.Wheat });
             }
 
             if (FS == true)

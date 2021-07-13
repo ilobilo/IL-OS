@@ -29,27 +29,32 @@ namespace IL_OS
 
             if (Kernel.Pressed)
             {
-                if (MouseManager.X > this.X && MouseManager.X < this.X + this.W - Bar && MouseManager.Y > this.Y && MouseManager.Y < this.Y + Bar)
+                if (MouseManager.X > this.X && MouseManager.X < this.X + this.W - Bar && MouseManager.Y > this.Y && MouseManager.Y < this.Y + Bar && !Kernel.WindowsMoving)
                 {
                     Move = true;
+                    Kernel.WindowsMoving = true;
 
                     OX = (int)(MouseManager.X - this.X);
                     OY = (int)(MouseManager.Y - this.Y);
 
                     Kernel.Focused = GUI.GetIndex(this.Title);
                 }
-                else if (MouseManager.X > this.X + this.W - Bar && MouseManager.X < this.X + this.W && MouseManager.Y > this.Y && MouseManager.Y < this.Y + Bar)
+                else if (MouseManager.X > this.X + this.W - Bar && MouseManager.X < this.X + this.W && MouseManager.Y > this.Y && MouseManager.Y < this.Y + Bar && !Kernel.WindowsMoving)
                 {
                     this.Opened = false;
                 }
-                if (MouseManager.X > this.X && MouseManager.X < this.X + this.W && MouseManager.Y > this.Y && MouseManager.Y < this.Y + this.H)
+                if (MouseManager.X > this.X && MouseManager.X < this.X + this.W && MouseManager.Y > this.Y && MouseManager.Y < this.Y + this.H && !Kernel.WindowsMoving)
                 {
-                    Kernel.Focused = GUI.GetIndex(this.Title);
+                    if (true)
+                    {
+                        Kernel.Focused = GUI.GetIndex(this.Title); 
+                    }
                 }
             }
             else
             {
                 Move = false;
+                Kernel.WindowsMoving = false;
             }
 
             if (Move)
@@ -61,6 +66,10 @@ namespace IL_OS
             if (this.Y < 25)
             {
                 this.Y = 25;
+            }
+            if (Move && MouseManager.Y < 25)
+            {
+                MouseManager.Y = 25;
             }
 
             // Bar
