@@ -33,7 +33,7 @@ namespace IL_OS
             vMWareSVGAII.DrawACSIIString(term, (uint)Color.White.ToArgb(), 88 + (((uint)(term.Length * 7 + term.Length - 1 + 6) - ((uint)term.Length * 7 + (uint)term.Length - 1)) / 2), 4 + 1);
             if (Kernel.Pressed == true && MouseManager.X > 88 && MouseManager.X < (88 + (uint)(term.Length * 7 + term.Length - 1 + 6)) && MouseManager.Y > 4 && MouseManager.Y < (4 + 16))
             {
-                Kernel.windows[GetIndex("Terminal")].Opened = true;
+                Kernel.windows[GetIndex("Terminal")].Open();
             }
 
             vMWareSVGAII.DoubleBuffer_DrawLine((uint)Color.LightGray.ToArgb(), 160, 4, 160, 21);
@@ -43,7 +43,7 @@ namespace IL_OS
             vMWareSVGAII.DrawACSIIString(note, (uint)Color.White.ToArgb(), 165 + (((uint)(note.Length * 7 + note.Length - 1 + 6) - ((uint)note.Length * 7 + (uint)note.Length - 1)) / 2), 4 + 1);
             if (Kernel.Pressed == true && MouseManager.X > 165 && MouseManager.X < (165 + (uint)(note.Length * 7 + note.Length - 1 + 6)) && MouseManager.Y > 4 && MouseManager.Y < (4 + 16))
             {
-                Kernel.windows[GetIndex("Notepad")].Opened = true;
+                Kernel.windows[GetIndex("Notepad")].Open();
             }
         }
 

@@ -85,6 +85,7 @@ namespace IL_OS
                 Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
                 Console.Clear();
             }
+            Console.Clear();
         }
         
         protected override void Run()
@@ -123,7 +124,6 @@ namespace IL_OS
             }
             else
             {
-                Console.Clear();
                 Shell.Run();
             }
         }

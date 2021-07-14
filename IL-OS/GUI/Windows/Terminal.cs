@@ -78,6 +78,10 @@ namespace IL_OS
 
         private void ProcessCommand()
         {
+            if (string.IsNullOrWhiteSpace(Command))
+            {
+                return;
+            }
             Command = Command + " ";
             string command = Command.Split(" ", StringSplitOptions.RemoveEmptyEntries)[0].ToLower();
             int i = Command.IndexOf(" ") + 1;
@@ -118,7 +122,7 @@ namespace IL_OS
 
         public override void UIUpdate()
         {
-            MaxLine = (H - Bar) / 14;
+            MaxLine = (H - Bar) / 15;
 
             if (WI < 60)
             {
@@ -183,7 +187,7 @@ namespace IL_OS
             int k = 0;
             foreach (var v in s)
             {
-                Kernel.vMWareSVGAII.DrawACSIIString(v, (uint)Color.White.ToArgb(), (uint)(X + 3), (uint)(Y + Bar + k * 14));
+                Kernel.vMWareSVGAII.DrawACSIIString(v, (uint)Color.White.ToArgb(), (uint)(X + 3), (uint)(Y + Bar + k * 15));
                 k++;
             }
         }

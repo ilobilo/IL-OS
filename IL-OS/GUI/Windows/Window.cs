@@ -37,7 +37,7 @@ namespace IL_OS
                     OX = (int)(MouseManager.X - this.X);
                     OY = (int)(MouseManager.Y - this.Y);
 
-                    Kernel.Focused = GUI.GetIndex(this.Title);
+                    Focus();
                 }
                 else if (MouseManager.X > this.X + this.W - Bar && MouseManager.X < this.X + this.W && MouseManager.Y > this.Y && MouseManager.Y < this.Y + Bar && !Kernel.WindowsMoving)
                 {
@@ -45,16 +45,18 @@ namespace IL_OS
                 }
                 if (MouseManager.X > this.X && MouseManager.X < this.X + this.W && MouseManager.Y > this.Y && MouseManager.Y < this.Y + this.H && !Kernel.WindowsMoving)
                 {
-                    if (true)
-                    {
-                        Kernel.Focused = GUI.GetIndex(this.Title); 
-                    }
+                    Focus();
                 }
             }
             else
             {
                 Move = false;
                 Kernel.WindowsMoving = false;
+            }
+
+            if (Move)
+            {
+                Move = ShouldMove(); 
             }
 
             if (Move)
@@ -103,6 +105,58 @@ namespace IL_OS
 
         public virtual void InputUpdate()
         {
+        }
+
+        public void Open()
+        {
+            this.Opened = true;
+            Kernel.Focused = GUI.GetIndex(this.Title);
+        }
+
+        public void Focus()
+        {
+            foreach (var w in Kernel.windows)
+            {
+                if (this.X < w.X + w.W && this.X + this.W > w.X && this.Y < w.Y + w.H && this.Y + this.H > w.Y)
+                {
+                    Rectangle Wrectangle = new Rectangle(w.X, w.Y, w.W, w.H);
+                    Rectangle Trectangle = new Rectangle(this.X, this.Y, this.W, this.H);
+                    if (MouseManager.X > Rectangle.Intersect(Wrectangle, Trectangle).X && MouseManager.X < Rectangle.Intersect(Wrectangle, Trectangle).X + Rectangle.Intersect(Wrectangle, Trectangle).Width && MouseManager.Y > Rectangle.Intersect(Wrectangle, Trectangle).Y && MouseManager.Y < Rectangle.Intersect(Wrectangle, Trectangle).Y + Rectangle.Intersect(Wrectangle, Trectangle).Height)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        Kernel.Focused = GUI.GetIndex(this.Title);
+                    }
+                }
+                else
+                {
+                    Kernel.Focused = GUI.GetIndex(this.Title);
+                }
+            }
+        }
+
+        public bool ShouldMove()
+        {
+            if (Kernel.Focused == GUI.GetIndex(this.Title))
+            {
+                return true;
+            }
+            foreach (var w in Kernel.windows)
+            {
+                Rectangle Wrectangle = new Rectangle(w.X, w.Y, w.W, w.H);
+                Rectangle Trectangle = new Rectangle(this.X, this.Y, this.W, this.Bar);
+                if (MouseManager.X > Rectangle.Intersect(Wrectangle, Trectangle).X && MouseManager.X < Rectangle.Intersect(Wrectangle, Trectangle).X + Rectangle.Intersect(Wrectangle, Trectangle).Width && MouseManager.Y > Rectangle.Intersect(Wrectangle, Trectangle).Y && MouseManager.Y < Rectangle.Intersect(Wrectangle, Trectangle).Y + Rectangle.Intersect(Wrectangle, Trectangle).Height)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
