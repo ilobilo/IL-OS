@@ -119,7 +119,7 @@ namespace IL_OS
             }
         }
 
-        public override void UIUpdate()
+        public override void Update()
         {
             MaxLine = (H - Bar) / 15;
 

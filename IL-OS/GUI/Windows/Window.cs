@@ -96,10 +96,10 @@ namespace IL_OS
             {
                 InputUpdate();
             }
-            UIUpdate();
+            Update();
         }
 
-        public virtual void UIUpdate()
+        public virtual void Update()
         {
         }
 
@@ -123,7 +123,14 @@ namespace IL_OS
                     Rectangle Trectangle = new Rectangle(this.X, this.Y, this.W, this.H);
                     if (MouseManager.X > Rectangle.Intersect(Wrectangle, Trectangle).X && MouseManager.X < Rectangle.Intersect(Wrectangle, Trectangle).X + Rectangle.Intersect(Wrectangle, Trectangle).Width && MouseManager.Y > Rectangle.Intersect(Wrectangle, Trectangle).Y && MouseManager.Y < Rectangle.Intersect(Wrectangle, Trectangle).Y + Rectangle.Intersect(Wrectangle, Trectangle).Height)
                     {
-                        continue;
+                        if (!w.Opened)
+                        {
+                            Kernel.Focused = GUI.GetIndex(this.Title);
+                        }
+                        else
+                        {
+                            continue;
+                        }
                     }
                     else
                     {
