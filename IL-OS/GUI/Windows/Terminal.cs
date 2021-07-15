@@ -31,6 +31,7 @@ namespace IL_OS
         
         public override void InputUpdate()
         {
+            var current_dir = Directory.GetCurrentDirectory();
             if (KeyboardManager.TryReadKey(out keyEvent))
             {
                 switch (keyEvent.Key)
@@ -38,10 +39,21 @@ namespace IL_OS
                     case ConsoleKeyEx.Backspace:
                         if (ContinuableCommand == "")
                         {
-                            if (Content.Length != 0)
+                            if (Kernel.FS)
                             {
-                                Content = Content.Substring(0, Content.Length - 1);
+                                if (!Content.EndsWith($"0:\\{current_dir} $ "))
+                                {
+                                    Content = Content.Substring(0, Content.Length - 1);
+                                }
                             }
+                            else
+                            {
+                                if (!Content.EndsWith("$ "))
+                                {
+                                    Content = Content.Substring(0, Content.Length - 1);
+                                }
+                            }
+
                             if (Command.Length != 0)
                             {
                                 Command = Command.Substring(0, Command.Length - 1);
@@ -121,7 +133,7 @@ namespace IL_OS
 
         public override void Update()
         {
-            MaxLine = (H - Bar) / 15;
+            MaxLine = (H - Bar) / 16;
 
             if (WI < 60)
             {
@@ -186,7 +198,7 @@ namespace IL_OS
             int k = 0;
             foreach (var v in s)
             {
-                Kernel.vMWareSVGAII.DrawACSIIString(v, (uint)Color.White.ToArgb(), (uint)(X + 3), (uint)(Y + Bar + k * 15));
+                Kernel.vMWareSVGAII.DrawACSIIString(v, (uint)Color.White.ToArgb(), (uint)(X + 3), (uint)(Y + Bar + k * 16));
                 k++;
             }
         }

@@ -97,7 +97,7 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
       <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-      <Optimize>false</Optimize>
+      <Optimize>true</Optimize>
       <DebugEnabled>False</DebugEnabled>
       <DebugMode>Source</DebugMode>
     </PropertyGroup>
