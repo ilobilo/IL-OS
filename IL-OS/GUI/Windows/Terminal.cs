@@ -153,7 +153,6 @@ namespace IL_OS
                     break;
             }
 
-
             if (WI < 30)
             {
                 aContent = Content + ContinuableCommandOutput + "_";
@@ -167,7 +166,7 @@ namespace IL_OS
             int i = 0;
             foreach (var v in aContent)
             {
-                if (i < ((W - 7) / 7) && v != '\n')
+                if (i < ((W - 4) / 8) && v != '\n')
                 {
                     i++;
                     l += v;
@@ -198,7 +197,7 @@ namespace IL_OS
             int k = 0;
             foreach (var v in s)
             {
-                Kernel.vMWareSVGAII.DrawACSIIString(v, (uint)Color.White.ToArgb(), (uint)(X + 3), (uint)(Y + Bar + k * 16));
+                Kernel.vMWareSVGAII.DrawACSIIString(v, (uint)Color.White.ToArgb(), (uint)(X + 2), (uint)(Y + Bar + k * 16));
                 k++;
             }
         }

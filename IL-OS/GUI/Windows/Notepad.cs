@@ -13,5 +13,15 @@ namespace IL_OS
         {
             Title = "Notepad";
         }
+
+        public override void InputUpdate()
+        {
+            
+        }
+
+        public override void Update()
+        {
+            
+        }
     }
 }
