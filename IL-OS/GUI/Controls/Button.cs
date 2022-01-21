@@ -19,12 +19,12 @@ namespace IL_OS
             }
         }
         DoubleBufferedVMWareSVGAII driver;
-        public static Color TextColor { get; set; } = Color.Black;
-        public static Color BackColor { get; set; } = Color.White;
-        public static Color BorderColor { get; set; } = BackColor;
+        public Color TextColor { get; set; } = Color.Black;
+        public Color BackColor { get; set; } = Color.White;
+        public Color BorderColor { get; set; } = BackColor;
         public uint X { get; set; }
         public uint Y { get; set; }
-        public static string Text { get; set; } = "Button";
+        public string Text { get; set; } = "Button";
         public uint width = (uint)(Text.Length * 7 + Text.Length - 1 + 6);
         public uint height = 16;
         public Button(DoubleBufferedVMWareSVGAII vMWareSVGAII, string text, uint x, uint y)
